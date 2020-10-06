@@ -1,0 +1,26 @@
+version: '3'
+services:
+  # this container will run Cypress test using built-in Electron browser
+
+  # this container will run Cypress test using Chrome browser
+  e2e-chrome:
+    image: "cypress/included:4.1.0"
+    # container_name: cypress
+    # "cypress/included" images have entrypoint set to globally installed cypress
+    # so the command can simply add any arguments
+    command: "--browser chrome"
+    volumes:
+      - ./cypress:/docker-compose run e2e-chrome
+      - ./cypress.json:/cypress.json
+
+  # this container will run Cypress test using Firefox browser
+  # note that both Chrome and Firefox browsers were pre-installed in the Docker image
+  e2e-firefox:
+    image: "cypress/included:4.1.0"
+    command: "--browser firefox --config video=false"
+    # if you want to debug FF run, pass DEBUG variable like
+    environment:
+      - DEBUG=cypress:server:browsers:firefox-util,cypress:server:util:process_profiler
+    volumes:
+      - ./cypress:/cypress/tests
+      - ./cypress.json:/cypress.json
