@@ -1,4 +1,4 @@
-import testA11y from "../../helpers/testA11y";
+import testA11y from "../helpers/testA11y";
 
 describe("Zup Page accessibility Tests", () => {
   it("should go through the page flow validating accessibility", () => {
